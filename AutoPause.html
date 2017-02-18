@@ -1,0 +1,15 @@
+//------- Eye Tracking Library used -----------//
+<script src="WebGazer\build\webgazer.js" type="text/js">
+
+<html>
+    <head>
+      <title> AutoPause </title>
+    </head>
+    <body>
+      <H1> Hello World </H1>
+    webgazer.begin()
+    webgazer.setGazeListener(function(data, elapsedTime) {
+        var xprediction = data.x;
+        var yprediction = data.y;
+      }).begin();
+  </html>
