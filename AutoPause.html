@@ -5,7 +5,7 @@
       <title>AutoPause Demo</title>
       <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
   </head>
-  <body LANG="en-US" LINK="#0000ff" DIR="LTR">
+  <body LANG="en-US" LINK="#0000ff" DIR="LTR" overflow="hidden">
     <script src="WebGazer-master/build/webgazer.js"></script>
     <script>
       var ballIncrementX = 1;
@@ -16,6 +16,12 @@
       var ballWidth = 20;
       var ballTheta = 0;
       var ourInterval;
+
+      var ballTwoX = 0;
+      var ballTwoY = 500;
+      var ballTwoTheta = 0;
+      var ballTwoR = 100;
+      var ballTwoIncrement = .1;
 
       var isNull = false;
       window.onload = function() {
@@ -39,9 +45,12 @@
             document.getElementById("pauseMessage").style.visibility = "hidden";
             ourInterval = setInterval(function(){
               ballTheta = ballTheta + ballIncrementY;
-              ballX = ballR * Math.cos(ballTheta) + 400;
+              ballX = ballR * Math.cos(ballTheta) + 600;
               ballY = ballR * Math.sin(ballTheta) + 400;
               ballWidth = ballWidth + ballIncrementX;
+              ballTwoX = ballTwoX + 4;
+              ballTwoTheta = ballTwoTheta + ballTwoIncrement;
+              ballTwoY = ballTwoR * Math.sin(ballTwoTheta) + 500;
               if (ballWidth >= 30)
               {
                 ballIncrementX = -1;
@@ -50,17 +59,23 @@
               {
                 ballIncrementX = 1;
               }
+              if (ballTwoX >= 1550)
+              {
+                ballTwoX = 0;
+              }
               document.getElementById("blockBall").style.top = ballY + "px";
               document.getElementById("blockBall").style.left = ballX + "px";
               document.getElementById("blockBall").style.width = ballWidth + "px";
               document.getElementById("blockBall").style.height = ballWidth + "px";
+              document.getElementById("blockBallTwo").style.left = ballTwoX + "px";
+              document.getElementById("blockBallTwo").style.top = ballTwoY + "px";
             }, 50);
           }
             console.log(data); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
             console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
         })
         .begin()
-        .showPredictionPoints(true); /* shows a square every 100 milliseconds where current prediction is */
+        .showPredictionPoints(false); /* shows a square every 100 milliseconds where current prediction is */
 
       var width = 320;
       var height = 240;
@@ -118,10 +133,12 @@
     }
     </script>
      <!---TestCode-->>
-    <h1 id="pauseMessage" style="margin-left: auto; margin-right: auto; font-size: 50px; visibility: visible; margin-left: 400px;">Paused</h1>
+    <h1 id="pauseMessage" style="margin-left: 80%; margin-right: auto; font-size: 50px; visibility: visible; position: absolute; font-family: courier;">Paused</h1>
     <div id="main" style="width: 600px; height: 600px; margin-left: 450px; margin-right: 0px;">
         <div id="blockBall" style="width: 20px; height: 20px; background-color: black; margin: 0px; position: absolute; top: 200px; left: 200px;">
         </div>
+        <img src="nyancat.png" id="blockBallTwo" style="width: 50px; height: auto; margin: 0px; position: absolute; top: 500px; left: 0px;">
+        <img src="bg.png" style="position: absolute; height: 675px; width: 1500px; left: 0px; z-index: -1;">
     </div>
   </body>
 </html>
